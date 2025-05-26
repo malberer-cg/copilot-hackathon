@@ -5,14 +5,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 import java.util.Optional;
+import lombok.RequiredArgsConstructor;
 
 @Service
+@RequiredArgsConstructor
 public class MemberService {
     private final MemberRepository memberRepository;
-
-    public MemberService(MemberRepository memberRepository) {
-        this.memberRepository = memberRepository;
-    }    
     
     public Member registerMember(String name, String email, String phone) {
         Member member = Member.builder()

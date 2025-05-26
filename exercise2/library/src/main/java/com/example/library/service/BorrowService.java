@@ -7,24 +7,18 @@ import org.springframework.stereotype.Service;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import lombok.RequiredArgsConstructor;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class BorrowService {
     private final BorrowRecordRepository borrowRecordRepository;
     private final BookService bookService;
     private final MemberService memberService;
-
-    public BorrowService(BorrowRecordRepository borrowRecordRepository,
-                      BookService bookService,
-                      MemberService memberService) {
-        this.borrowRecordRepository = borrowRecordRepository;
-        this.bookService = bookService;
-        this.memberService = memberService;
-    }    
     
     public BorrowRecord borrowBook(Long memberId, Long id) {
         var memberOpt = memberService.getMemberById(memberId);

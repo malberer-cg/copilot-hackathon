@@ -4,8 +4,6 @@ import com.example.library.model.Book;
 import com.example.library.model.Member;
 import com.example.library.service.BookService;
 import com.example.library.service.MemberService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.xml.bind.JAXBContext;
@@ -13,8 +11,11 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlElement;
+import lombok.RequiredArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
-
 import org.springframework.stereotype.Component;
 
 import java.nio.file.Files;
@@ -22,31 +23,28 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
+@Slf4j
 @Component
+@RequiredArgsConstructor
 public class DataLoader implements CommandLineRunner {
-    private static final Logger logger = LoggerFactory.getLogger(DataLoader.class);
-    
-    @Override
-    public void run(String... args) throws Exception {
-        loadInitialData();
-    }
     private final BookService bookService;
     private final MemberService memberService;
     private final ObjectMapper objectMapper;
 
-    public DataLoader(BookService bookService, MemberService memberService, ObjectMapper objectMapper) {
-        this.bookService = bookService;
-        this.memberService = memberService;
-        this.objectMapper = objectMapper;
-    }    public void loadInitialData() {
+    @Override
+    public void run(String... args) throws Exception {
+        loadInitialData();
+    }
+    
+    public void loadInitialData() {
         // Only load initial data if the database is empty
         if (bookService.getAllBooks().isEmpty() && memberService.getAllMembers().isEmpty()) {
-            logger.info("Database is empty. Loading initial data...");
+            log.info("Database is empty. Loading initial data...");
             loadBooks();
             loadMembers();
-            logger.info("Initial data loading completed.");
+            log.info("Initial data loading completed.");
         } else {
-            logger.info("Database already contains data. Skipping initial data load.");
+            log.info("Database already contains data. Skipping initial data load.");
         }
     }
 
@@ -58,9 +56,9 @@ public class DataLoader implements CommandLineRunner {
             List<Book> books = objectMapper.readValue(booksFile.toFile(), 
                 new TypeReference<List<Book>>() {});
             books.forEach(bookService::addBook);
-            logger.info("Successfully loaded {} books from {}", books.size(), booksFile);
+            log.info("Successfully loaded {} books from {}", books.size(), booksFile);
         } catch (Exception e) {
-            logger.error("Error loading books: {}", e.getMessage());
+            log.error("Error loading books: {}", e.getMessage());
         }
     }
 
@@ -75,24 +73,18 @@ public class DataLoader implements CommandLineRunner {
             members.getMembers().forEach(member -> 
                 memberService.registerMember(member.getName(), member.getEmail(), member.getPhone())
             );
-            logger.info("Successfully loaded {} members from {}", memberCount, membersFile);
+            log.info("Successfully loaded {} members from {}", memberCount, membersFile);
         } catch (Exception e) {
-            logger.error("Error loading members: {}", e.getMessage());
+            log.error("Error loading members: {}", e.getMessage());
         }
     }
 }
 
 @XmlRootElement(name = "members")
 @XmlAccessorType(XmlAccessType.FIELD)
+@Getter
+@Setter
 class Members {
     @XmlElement(name = "member")
     private List<Member> members;
-
-    public List<Member> getMembers() {
-        return members;
-    }
-
-    public void setMembers(List<Member> members) {
-        this.members = members;
-    }
 }

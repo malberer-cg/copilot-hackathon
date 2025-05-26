@@ -4,21 +4,16 @@ import com.example.library.service.BookService;
 import com.example.library.service.BorrowService;
 import com.example.library.service.MemberService;
 import org.springframework.stereotype.Component;
+import lombok.RequiredArgsConstructor;
 import java.util.Scanner;
 
 @Component
+@RequiredArgsConstructor
 public class LibraryConsole {
     private final BookService bookService;
     private final MemberService memberService;
     private final BorrowService borrowService;
-    private final Scanner scanner;
-
-    public LibraryConsole(BookService bookService, MemberService memberService, BorrowService borrowService) {
-        this.bookService = bookService;
-        this.memberService = memberService;
-        this.borrowService = borrowService;
-        this.scanner = new Scanner(System.in);
-    }
+    private final Scanner scanner = new Scanner(System.in);
 
     public void start() {
         boolean running = true;
