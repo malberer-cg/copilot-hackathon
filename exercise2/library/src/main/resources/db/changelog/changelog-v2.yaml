@@ -1,0 +1,93 @@
+databaseChangeLog:
+  - changeSet:
+      id: 2
+      author: copilot
+      changes:
+        - createTable:
+            tableName: books
+            columns:
+              - column:
+                  name: id
+                  type: integer
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: isbn
+                  type: varchar(20)
+                  constraints:
+                    unique: true
+                    nullable: false
+              - column:
+                  name: title
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: author
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: genre
+                  type: varchar(50)
+              - column:
+                  name: available
+                  type: boolean
+                  defaultValueBoolean: true
+        - createTable:
+            tableName: members
+            columns:
+              - column:
+                  name: id
+                  type: integer
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: email
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: phone
+                  type: varchar(20)
+        - createTable:
+            tableName: borrow_records
+            columns:
+              - column:
+                  name: id
+                  type: integer
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: book_id
+                  type: integer
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_borrow_book
+                    references: books(id)
+              - column:
+                  name: member_id
+                  type: integer
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_borrow_member
+                    references: members(id)
+              - column:
+                  name: borrow_date
+                  type: timestamp
+                  constraints:
+                    nullable: false
+              - column:
+                  name: return_date
+                  type: timestamp

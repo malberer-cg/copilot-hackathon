@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<members>
+    <member>
+        <memberId>d290f1ee-6c54-4b01-90e6-d701748f0851</memberId>
+        <name>John Doe</name>
+        <email>john.doe@example.com</email>
+        <phone>+1-555-0123</phone>
+    </member>
+    <member>
+        <memberId>04d0f1ee-6c54-4b01-90e6-d701748f0852</memberId>
+        <name>Jane Smith</name>
+        <email>jane.smith@example.com</email>
+        <phone>+1-555-0124</phone>
+    </member>
+</members>

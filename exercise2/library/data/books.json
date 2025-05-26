@@ -1,0 +1,23 @@
+[
+  {
+    "isbn": "978-0134685991",
+    "title": "Effective Java",
+    "author": "Joshua Bloch",
+    "genre": "Programming",
+    "available": true
+  },
+  {
+    "isbn": "978-0132350884",
+    "title": "Clean Code",
+    "author": "Robert C. Martin",
+    "genre": "Programming",
+    "available": true
+  },
+  {
+    "isbn": "978-0262033848",
+    "title": "Introduction to Algorithms",
+    "author": "Thomas H. Cormen",
+    "genre": "Computer Science",
+    "available": true
+  }
+]
