@@ -6,6 +6,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Profile;
 
 @SpringBootApplication
 public class LibraryApplication {
@@ -20,6 +21,7 @@ public class LibraryApplication {
     }
 
     @Bean
+    @Profile("!test") // The console menu will not run when test profile is active
     public CommandLineRunner commandLineRunner(LibraryConsole libraryConsole) {
         return args -> {
             libraryConsole.start();
