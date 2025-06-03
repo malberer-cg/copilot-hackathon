@@ -76,3 +76,4 @@ The Linux kernel serves as the foundation of the Linux operating system, handlin
 "put the analysis of factual differences into the differences.md file but do not edit any other file"
 
 --> this was an attempt to see if it can find some of the nonsense I found by comparing with the official documentation. It did not. But it did find that the build instructions in the generated documentation were just made up.
+--> Also, somewhere along the way it changed the actual code files which I never requested. I did not check what changed exactly or whether it even still compiles but it's at least suspicious behaviour.
